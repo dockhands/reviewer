@@ -1,0 +1,177 @@
+<div class="body_content">
+
+<div class="search_bar">
+
+
+  <form class="" action="/" method="post">
+      <div>
+
+        <label for="moviel_get"></label>
+        <input placeholder="Enter movie title (e.g. 2 Fast 2 Furious)" class="input_field" type="text" name="movie_input" id="movie_get"><input type="submit" value="Review!" onclick="confirmMovie()">
+      </div>
+
+  </form>
+</div>
+
+
+<br>
+<div id="stage_1">
+</div>
+
+<div id="stage_2" style="visibility:hidden">
+
+<button class = "confirmButton" onclick="rightMovie()">Yeah?</button>
+<button class = "confirmButton" onclick="wrongMovie()">No</button>
+</div>
+
+<div id="stage_3" style="visibility:hidden">
+   <br>
+   <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
+   <br>
+    <p><span id="time"></span></p>
+   <!-- <span class="sr-only">Loading...</span> -->
+ <button onclick="fastForward()">Speed it up!</button>
+</div>
+
+<div id="stage_4" style="visibility:hidden">
+   <br>
+   <br>
+</div>
+
+</div>
+
+
+
+    <% if @movie_info %>
+      <script>
+      window.onload = function(){
+       // function confirmMovie(){
+
+        var confirm = ['OK,', 'Alright.', 'As you wish.', 'You name it, boss.', 'Let it be.', 'Roger.', 'Alrighty,', '10-4.', 'Okie doke.', "K.", "Mmmm K.", "Hmm."];
+        var randConfirm = confirm[Math.floor(Math.random()*confirm.length)];
+        var sentence = [" So you want me to review the ", " You mean the ", " You want me to watch the ", " You want the ", " So the ", " That's the "];
+        var randSentence = sentence[Math.floor(Math.random()*sentence.length)];
+        var film = ["flick", "film", "movie", "one", "blockbuster", "motion picture", "masterpiece"];
+        var randFilm = film[Math.floor(Math.random()*film.length)];
+        var type = [" starring " + "<%= @movie_info[:actors].sample%>", " directed by  " + "<%= @movie_info[:director]%>", " about a " + "<%= @movie_info[:keywords].sample%>", " involving a " + "<%= @movie_info[:keywords].sample%>", " involving a "];
+        var randType = type[Math.floor(Math.random()*type.length)];
+        document.getElementById('stage_1').innerHTML = randConfirm + randSentence + randFilm + randType + "?";
+        document.getElementById("stage_2").style.visibility = "visible";
+        document.getElementById("stage_3").style.visibility = "hidden";
+       }
+
+
+       function rightMovie() {
+
+           var correct = [
+              "Hmm, OK it’s about " + "<%= @movie_info[:time]%>" + " long. This will take some time.",
+              "Alright, it’s " + "<%= @movie_info[:time]%>" + "  long. I’ll let you know when I’m done watching it.",
+              "Cool. It’s about " + "<%= @movie_info[:time]%>" + " long. I can shoot you a message when I’m done." ,
+              "Awesome. Just so you’re aware, it’s " + "<%= @movie_info[:time]%>" + " long. So I’ll start watching now. ",
+              "K hang tight, it’s about " + "<%= @movie_info[:time]%>" + " long. I’m going to start watching now. ",
+              "OK it’s pretty long. I’ll be done in about " + "<%= @movie_info[:time]%>" + ".",
+              "Alright, I’m pumped. It’s about " + "<%= @movie_info[:time]%>" + " long, so I’ll hit you up when I’m done. ",
+              "Huh. OK, well it doesn’t look that good. But I’ll let you know when I’m done in " + "<%= @movie_info[:time]%>" + "." ,
+              "K, well it’s not my cup of tea, but I’ll let you know how it goes in " + "<%= @movie_info[:time]%>" + " when I’m done.",
+              "Hmm looks interesting. I’ll hit you up in " + "<%= @movie_info[:time]%>" + " when I’m done watching. "
+              ];
+           var randCorrect = correct[Math.floor(Math.random()*correct.length)];
+           document.getElementById("stage_1").innerHTML  = randCorrect;
+           document.getElementById("stage_2").innerHTML  = "";
+           document.getElementById("stage_3").style.visibility = "visible";
+
+
+       }
+
+       function wrongMovie() {
+
+         var wrong = ["OK. Maybe be more explicit.", "Ummm ok then.", "Alright, I’ll probably watch it anyways.", "Hmm it looked pretty though.", "You’re the boss. I’m going to check it out either way though.", "Thanks, I wasn’t really in the mood."];
+         var randWrong = wrong[Math.floor(Math.random()*wrong.length)];
+
+           document.getElementById("stage_1").innerHTML  = randWrong;
+           document.getElementById("stage_2").innerHTML  = "";
+       }
+
+       var movie_length = <%= @movie_info[:time].to_i%>;
+       var movieTime = 60 * movie_length;
+      // var movieTime = 5;
+        display = document.querySelector('#time');
+        startTimer(movieTime, display);
+       // timer script
+       function startTimer(duration, display) {
+          var start = Date.now(),
+              diff,
+              minutes,
+              seconds;
+          function timer() {
+              // get the number of seconds that have elapsed since
+              // startTimer() was called
+              diff = duration - (((Date.now() - start) / 1000) | 0);
+
+              // does the same job as parseInt truncates the float
+              minutes = (diff / 60) | 0;
+              seconds = (diff % 60) | 0;
+
+              minutes = minutes < 10 ? "0" + minutes : minutes;
+              seconds = seconds < 10 ? "0" + seconds : seconds;
+
+              display.textContent = minutes + ":" + seconds;
+
+              if (diff <= 0) {
+                  // add one second so that the count down starts at the full duration
+                  // example 05:00 not 04:59
+                  start = Date.now() + 1000;
+              }
+
+
+          };
+          // we don't want to wait a full second before the timer starts
+          timer();
+          setInterval(timer, 1000);
+
+
+
+      }
+
+      function end (){
+      document.getElementById("stage_1").innerHTML  = "";
+      document.getElementById("stage_2").innerHTML  = "";
+      document.getElementById("stage_3").innerHTML  = "I loved it! I'd give it " + "<%= @movie_info[:new_rating]%>" + " bytes out of 1!";
+      }
+      setTimeout("end()", movieTime * 1000);
+
+
+      function fastForward(){
+        document.getElementById("stage_1").innerHTML  = "";
+        document.getElementById("stage_2").innerHTML  = "";
+        document.getElementById("stage_3").innerHTML  = "";
+        document.getElementById("stage_4").style.visibility = "visible";
+        document.getElementById("stage_4").innerHTML  = fastReview;
+      }
+
+      var fastReview_a =
+      ["OK, I watched the movie at about 5000x speed so it was kind of hard to say what happened.",
+      "Alright. So I watched it at like 1000 speed. Can’t say for sure what happened.",
+      "K, so I watched the movie in like 1 second, so it’s kind of tough to give an honest critique.",
+      "So I just watched the first few seconds.",
+      "I barely made it threw the opening credits.",
+      "K I basically watched the film in a few seconds.",
+    ];
+      var fastReviewRandomA = fastReview_a[Math.floor(Math.random()*fastReview_a.length)];
+
+    var fastReview_b = [
+      " But I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " ends up dying. No spoilers.",
+      " But I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " was the killer.",
+      " Though I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " turned out to be total dick.",
+      " But there was some pretty cool colours. I'd probably give it 1/1 bytes.",
+      " But it was probably pretty good. I'd give it 1/1 bytes.",
+      " Though I think it's worth a watch. I'd probably give it 1/1 bytes.",
+      " But I'd probably give it 1/1 bytes!",
+      " That said, I think you may really enjoy it. I'd probably give it 1/1 bytes.",
+      " That being said, I'd watch it again anytime.",
+      " But I'd definitely give it 1/1 bytes!",
+      ];
+      var fastReviewRandomB = fastReview_b[Math.floor(Math.random()*fastReview_b.length)];
+      var fastReview = fastReviewRandomA + fastReviewRandomB;
+      </script>
+    <% end %>
