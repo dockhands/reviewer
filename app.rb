@@ -1,6 +1,6 @@
 gem 'sinatra', '1.4.7'
 require 'sinatra'
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require "Nokogiri"
 require "HTTParty"
 require "pry"
