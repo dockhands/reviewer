@@ -1,9 +1,9 @@
 gem 'sinatra', '1.4.7'
 require 'sinatra'
 # require 'sinatra/reloader'
-require "Nokogiri"
+require "nokogiri"
 require "HTTParty"
-require "pry"
+# require "pry"
 require "JSON"
 require "csv"
 require 'open-uri'
@@ -32,7 +32,10 @@ imdb_movie = imdb_search + movie
     link = page.xpath('//*[@id="main"]/div/div[2]/table')
     #link1 = page.xpath('//*[@id="main"]/div/div[2]/table/tbody/tr')
     #'//*[@id="main"]/div/div[2]/table/tbody/tr[1]/td[2]/a'
-    link = link.at_css('td.result_text').inner_html
+    link = link.css('td.result_text').inner_html
+    # link = link.xpath('//*[@id="main"]/div/div[2]/table/tbody/tr[1]/td[2]/a')
+
+    p "this is the first link is " + link
     # link = link.attributes["a"].value.to_s
     link = link.scan(/"([^"]*)"/).to_s
     title =  link.gsub("[", "").gsub('"', "").gsub(']', "").split("?",2)[0]
@@ -41,7 +44,7 @@ imdb_movie = imdb_search + movie
 
    final_imdb_link = "http://www.imdb.com/" + title
 
-
+  p "final_imdb_link = " + final_imdb_link
 
 
 
@@ -55,8 +58,9 @@ imdb_movie = imdb_search + movie
     #now we grab the HTML content we want
     #GET TITLE
     movie_name = parse_page.xpath('//h1').text.strip
-    director = parse_page.at_css('.credit_summary_item').text.gsub("\n",'').gsub("Director:","").strip
-
+    p "this is the movie_name " + movie_name
+    director = parse_page.css('.credit_summary_item').text.gsub("\n",'').gsub("Director:","").strip
+    p "this is the direcor " + director
     actors = []
         actor_1 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[1]/a/span').inner_html
         actor_2 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[2]/a/span').inner_html

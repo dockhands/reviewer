@@ -13,7 +13,7 @@ img {
 }
 
 p {
-
+  font-family: 'VT323', monospace;
   font-weight: lighter;
   font-weight: 100;
 }
@@ -22,13 +22,25 @@ h1 {
    font-family: 'Teko', sans-serif;
    margin-top: 10px;
 
-
 }
+a {
+
+     color: #807b7b;
+   }
+ a:hover {
+     color: black;
+   }
+
+
 
 .body_content {
   text-align: center;
 }
 
+.info_div{
+  font-family: 'VT323', monospace;
+
+}
 .input_field {
 
   width: 400px;
@@ -49,54 +61,52 @@ color: #807b7b;
 }
 
 .confirmButton {
-  -webkit-animation: fadein 10s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: fadein 10s; /* Firefox < 16 */
+  -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 4s; /* Firefox < 16 */
 
 }
 
 
 .container-fluid  {
-
+  font-family: 'VT323', monospace;
   text-align: center;
   background-color: #ededed;
   border-style:none
+  height: 100%;
 }
+.footer {
+height: 100%;}
 
-a {
-
-  color: #807b7b;
-}
-a:hover {
-  color: black;
-}
 
 #stage_1 {
-  font-family: 'Teko', sans-serif;
-  -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: fadein 6s; /* Firefox < 16 */
+  font-family: 'VT323', monospace;
+  -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 4s; /* Firefox < 16 */
 }
 
 
 #stage_2 {
-  font-family: 'Teko', sans-serif;
+  font-family: 'VT323', monospace;
     visibility: hidden;
-    -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 6s; /* Firefox < 16 */
+    -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 4s; /* Firefox < 16 */
 }
 
 #stage_3 {
+  font-family: 'VT323', monospace;
   text-align: center;
     visibility: hidden;
     -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 6s; /* Firefox < 16 */
 }
 #stage_4 {
+font-family: 'VT323', monospace;
   text-align: center;
   margin: auto;
    width: 70%;
     visibility: hidden;
-    -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 6s; /* Firefox < 16 */
+    -webkit-animation: fadein 9s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 9s; /* Firefox < 16 */
        padding-bottom: 20px;
 }
 
