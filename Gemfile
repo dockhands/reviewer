@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
-ruby "2.0.0"
+ruby "2.1.0"
+
 gem "rspec"
 gem 'font-awesome-less'
 gem 'sinatra', '1.4.7'
