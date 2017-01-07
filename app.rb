@@ -4,7 +4,7 @@ require 'sinatra'
 require "nokogiri"
 require 'httparty'
 # require "pry"
-require "JSON"
+require "json"
 require "csv"
 require 'open-uri'
 gem 'font-awesome-less'
