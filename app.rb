@@ -2,7 +2,7 @@ gem 'sinatra', '1.4.7'
 require 'sinatra'
 # require 'sinatra/reloader'
 require "nokogiri"
-require "HTTParty"
+require 'httparty'
 # require "pry"
 require "JSON"
 require "csv"
