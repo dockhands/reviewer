@@ -5,6 +5,8 @@ GEM
     diff-lcs (1.2.5)
     font-awesome-less (4.7.0)
       less (>= 2.4.0)
+    hoe (3.16.0)
+      rake (>= 0.8, < 13.0)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -13,10 +15,14 @@ GEM
       commonjs (~> 0.2.7)
     multi_xml (0.6.0)
     nokogiri (1.3.3)
+    racc (1.4.14)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
     rake (10.5.0)
+    rake-compiler (0.9.9)
+      rake
+    rexical (1.0.5)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -41,10 +47,14 @@ PLATFORMS
 
 DEPENDENCIES
   font-awesome-less
+  hoe (~> 3.16)
   httparty (~> 0.13.7)
   json (~> 1.8, >= 1.8.3)
   nokogiri (= 1.3.3)
+  racc (~> 1.4, >= 1.4.14)
   rake (~> 10.4, >= 10.4.2)
+  rake-compiler (~> 0.9.5)
+  rexical (~> 1.0, >= 1.0.5)
   rspec
   sinatra (= 1.4.7)
 
