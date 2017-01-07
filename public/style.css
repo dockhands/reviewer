@@ -96,8 +96,8 @@ height: 100%;}
   font-family: 'VT323', monospace;
   text-align: center;
     visibility: hidden;
-    -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 6s; /* Firefox < 16 */
+    -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 4s; /* Firefox < 16 */
 }
 #stage_4 {
 font-family: 'VT323', monospace;
@@ -105,8 +105,8 @@ font-family: 'VT323', monospace;
   margin: auto;
    width: 70%;
     visibility: hidden;
-    -webkit-animation: fadein 9s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 9s; /* Firefox < 16 */
+    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 5s; /* Firefox < 16 */
        padding-bottom: 20px;
 }
 
