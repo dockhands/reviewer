@@ -142,23 +142,23 @@ imdb_movie = imdb_search + movie
   #Get movie review from dandywarhos.com
 
   review_link = "https://www.dandywarhols.com/news/band/courtney/courtneys-one-sentence-movie-reviews/"
-  def get_movie_review(review_website)
-        #page = HTTParty.get('http://www.imdb.com/title/tt0119081/')
-        p "get movie review is running"
-        page = HTTParty.get(review_website)
-        # this is where we transform our http response into a nokogiri object so that we can parse it
-        parse_page = Nokogiri::HTML(page)
-        number = rand(1..249).to_s
-        p "This isthe random number " + number
+  # def get_movie_review(review_website)
+  #       #page = HTTParty.get('http://www.imdb.com/title/tt0119081/')
+  #       p "get movie review is running"
+  #       page = HTTParty.get(review_website)
+  #       # this is where we transform our http response into a nokogiri object so that we can parse it
+  #       parse_page = Nokogiri::HTML(page)
+  #       number = rand(1..249).to_s
+  #       p "This isthe random number " + number
+  #
+  #       review = parse_page.xpath('//*[@id="tm-content"]/article/table['+number+']/tbody/tr/td[2]/p[3]').text
+  #       #p "this is the moview_review taken from warhols " + movie_review
+  #       movie_review = {
+  #         review: review,
+  #       }
+  # end
 
-        review = parse_page.xpath('//*[@id="tm-content"]/article/table['+number+']/tbody/tr/td[2]/p[3]').text
-        #p "this is the moview_review taken from warhols " + movie_review
-        movie_review = {
-          review: review,
-        }
-  end
-
-  @movie_review = get_movie_review(review_link)
+  # @movie_review = get_movie_review(review_link)
   @movie_info = get_movie_info(final_imdb_link)
 
   erb(:index, { layout: :app_layout })
