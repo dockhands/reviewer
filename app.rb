@@ -59,7 +59,9 @@ imdb_movie = imdb_search + movie
     #GET TITLE
     movie_name = parse_page.xpath('//h1').text.strip
     p "this is the movie_name " + movie_name
-    director = parse_page.css('.credit_summary_item').text.gsub("\n",'').gsub("Director:","").strip
+    director = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[2]/div[1]/div[2]/span[1]/a/span')
+
+    # director = parse_page.css('.credit_summary_item').text.gsub("\n",'').gsub("Director:","").strip
     p "this is the direcor " + director
     actors = []
         actor_1 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[1]/a/span').inner_html

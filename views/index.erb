@@ -58,7 +58,23 @@
         var randSentence = sentence[Math.floor(Math.random()*sentence.length)];
         var film = ["flick", "film", "movie", "one", "blockbuster", "motion picture", "masterpiece"];
         var randFilm = film[Math.floor(Math.random()*film.length)];
-        var type = [" starring " + "<%= @movie_info[:actors].sample%>", " directed by  " + "<%= @movie_info[:director]%>", " about a " + "<%= @movie_info[:keywords].sample%>", " involving a " + "<%= @movie_info[:keywords].sample%>", " involving a "];
+
+        var actor = "<%= @movie_info[:actors].sample%>"
+        if(actor== 'nil'){
+          actor = "what's their face..."
+        };
+        var director = "<%= @movie_info[:director]%>"
+        if(director== 'nil'){
+          director = "what's their face..."
+        };
+
+        var keyword = "<%= @movie_info[:keywords].sample%>"
+        if(keyword== 'nil'){
+         keyword = "... to be honest, I have no idea."
+        };
+        var type = [" starring (new)" + actor, " directed by (new)" + director, " about a " + keyword, " involving a " + keyword];
+
+      //  var type = [" starring " + "<%= @movie_info[:actors].sample%>", " directed by  " + "<%= @movie_info[:director]%>", " about a " + "<%= @movie_info[:keywords].sample%>", " involving a " + "<%= @movie_info[:keywords].sample%>", " involving a "];
         var randType = type[Math.floor(Math.random()*type.length)];
         document.getElementById('stage_1').innerHTML = randConfirm + randSentence + randFilm + randType + "?";
         document.getElementById("stage_2").style.visibility = "visible";
