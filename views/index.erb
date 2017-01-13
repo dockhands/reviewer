@@ -81,8 +81,8 @@
         document.getElementById("stage_2").style.visibility = "visible";
         document.getElementById("stage_3").style.visibility = "hidden";
 
-       var review =   "<%= @movie_review%>"
-        document.getElementById("stage_A").style.visibility = review;
+       var review =  "<%= @movie_review%>"
+        document.getElementById("stage_A").innerHTML = review;
        }
 
 
