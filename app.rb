@@ -152,12 +152,11 @@ imdb_movie = imdb_search + movie
         p "This isthe random number " + number
 
         movie_review = parse_page.xpath('//*[@id="tm-content"]/article/table['+number+']/tbody/tr/td[2]/p[3]').text
+        #p "this is the moview_review taken from warhols " + movie_review
 
-
-        p "this is the moview_review taken from warhols " + movie_review
   end
 
- @movie_review = get_movie_review(review_link)
+  @movie_review = get_movie_review(review_link)
 
   # @error_message = bad_link(error)
   @movie_info = get_movie_info(final_imdb_link)
