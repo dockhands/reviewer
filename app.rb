@@ -26,7 +26,6 @@ movie = movie_input
 movie = movie.gsub(" ", '+')
 imdb_movie = imdb_search + movie
 
-
 # trying to get the first URL
      page = Nokogiri::HTML(open(imdb_movie))
     link = page.xpath('//*[@id="main"]/div/div[2]/table')
@@ -138,13 +137,28 @@ imdb_movie = imdb_search + movie
   rescue
   #   bad_link(error)
   end
-  #
-  # def bad_link(error)
-  #   error_message = {
-  #   sentence1: "There's a problem.",
-  #   sentence2: "Please try again."
-  #   }
-  # end
+
+
+  #Get movie review from dandywarhos.com
+
+  review_link = "https://www.dandywarhols.com/news/band/courtney/courtneys-one-sentence-movie-reviews/"
+  def get_movie_review(review_website)
+        #page = HTTParty.get('http://www.imdb.com/title/tt0119081/')
+        p "get movie review is running"
+        page = HTTParty.get(review_website)
+        # this is where we transform our http response into a nokogiri object so that we can parse it
+        parse_page = Nokogiri::HTML(page)
+        number = rand(1..249).to_s
+        p "This isthe random number " + number
+
+        movie_review = parse_page.xpath('//*[@id="tm-content"]/article/table['+number+']/tbody/tr/td[2]/p[3]').text
+
+
+        p "this is the moview_review taken from warhols " + movie_review
+  end
+
+ @movie_review = get_movie_review(review_link)
+
   # @error_message = bad_link(error)
   @movie_info = get_movie_info(final_imdb_link)
 
