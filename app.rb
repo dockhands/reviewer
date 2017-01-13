@@ -137,11 +137,11 @@ imdb_movie = imdb_search + movie
   rescue
   #   bad_link(error)
   end
-
+ @movie_info = get_movie_info(final_imdb_link)
 
   #Get movie review from dandywarhos.com
 
-  review_link = "https://www.dandywarhols.com/news/band/courtney/courtneys-one-sentence-movie-reviews/"
+  #review_link = "https://www.dandywarhols.com/news/band/courtney/courtneys-one-sentence-movie-reviews/"
   # def get_movie_review(review_website)
   #       #page = HTTParty.get('http://www.imdb.com/title/tt0119081/')
   #       p "get movie review is running"
@@ -159,7 +159,7 @@ imdb_movie = imdb_search + movie
   # end
 
   # @movie_review = get_movie_review(review_link)
-  @movie_info = get_movie_info(final_imdb_link)
+
 
   erb(:index, { layout: :app_layout })
 end
