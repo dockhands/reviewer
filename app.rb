@@ -14,6 +14,11 @@ get '/' do
   erb(:index, { layout: :app_layout })
 end
 
+get '/about' do
+  "we are here in about page"
+  erb(:about, { layout: :app_layout })
+end
+
 post '/' do
  #get the input movie_input
   # params => {"title"=>"my blog post title", "body"=>"the blog post body"}
@@ -28,27 +33,56 @@ imdb_movie = imdb_search + movie
 
 
 # trying to get the first URL
-     page = Nokogiri::HTML(open(imdb_movie))
+    page = Nokogiri::HTML(open(imdb_movie))
+
+    p "this is the imdb page that we got "
+    p page
+    p " this is the page path innerhmtl coming up: "
+    # p page.xpath('//*[@id="main"]/div/h1').inner_html.split(" ")[0]
+    # if  page.xpath('//*[@id="main"]/div/h1').inner_html.split(" ")[0] == "No"
+    #   # || page.xpath('//*[@id="main"]/div/h1').inner_html.split(" ")[0] == "Results"
+    #   p "we have a major problem"
+    #   p "==================================================== "
+    #   @movie_problem = "We have a problem"
+    # else p "is alll good"
+    #   @movie_problem = "no problem"
+    # end
     link = page.xpath('//*[@id="main"]/div/div[2]/table')
     #link1 = page.xpath('//*[@id="main"]/div/div[2]/table/tbody/tr')
     #'//*[@id="main"]/div/div[2]/table/tbody/tr[1]/td[2]/a'
     link = link.css('td.result_text').inner_html
     # link = link.xpath('//*[@id="main"]/div/div[2]/table/tbody/tr[1]/td[2]/a')
-
-    p "this is the first link is " + link
+   #  p "this is the first link is " + link
     # link = link.attributes["a"].value.to_s
     link = link.scan(/"([^"]*)"/).to_s
     title =  link.gsub("[", "").gsub('"', "").gsub(']', "").split("?",2)[0]
 
-
-
    final_imdb_link = "http://www.imdb.com/" + title
 
-  p "final_imdb_link = " + final_imdb_link
+  p "final_imdb_link ===========================  " + final_imdb_link
 
+  #======= GET MOVIE REVIEWS FROM dandywarhols website  METHOD
 
+  review_link = "https://www.dandywarhols.com/news/band/courtney/courtneys-one-sentence-movie-reviews/"
+    def get_movie_review(review_website)
+      #page = HTTParty.get('http://www.imdb.com/title/tt0119081/')
+      # p "get movie review is running ------------- -------------------- "
+      page = HTTParty.get(review_website)
+      # this is where we transform our http response into a nokogiri object so that we can parse it
+      parse_page = Nokogiri::HTML(page)
+      number = rand(1..249).to_s
 
-  #======= GET DIRECTOR METHOD
+      review = parse_page.xpath('//*[@id="tm-content"]/article/table['+number+']/tbody/tr/td[2]/p[3]').text
+      # p "this is the moview_review taken from warhols " + review
+      movie_review = {
+              review: review,
+            }
+
+    end
+
+     @movie_review = get_movie_review(review_link)
+
+  #======= GET IMDB MOVIE INFORMATION METHOD
 
   def get_movie_info(movie_title)
     #page = HTTParty.get('http://www.imdb.com/title/tt0119081/')
@@ -56,30 +90,49 @@ imdb_movie = imdb_search + movie
     # this is where we transform our http response into a nokogiri object so that we can parse it
     parse_page = Nokogiri::HTML(page)
     #now we grab the HTML content we want
-    #GET TITLE
+  #GET TITLE
     movie_name = parse_page.xpath('//h1').text.strip
     p "this is the movie_name " + movie_name
+
+  #GET Director
     director = parse_page.css('.credit_summary_item').text.gsub("\n",'').gsub("Director:","").strip
+    director = director.split("  ")[0]
     p "this is the direcor " + director
-    actors = []
-        actor_1 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[1]/a/span').inner_html
-        actor_2 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[2]/a/span').inner_html
-        actor_3 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[3]/a/span').inner_html
+
+
+  #GET  actors
+      actors = []
+
+        actor_1 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[2]/div[1]/div[4]/span[1]/a/span').inner_html
+        actor_2 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[2]/div[1]/div[4]/span[2]/a/span').inner_html
+        actor_3 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[2]/div[1]/div[4]/span[3]/a/span').inner_html
+         p  actors
+        if actor_1 == ""
+          p "actors are NOT defined! ! ! "
+          actor_1 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[1]/a/span').inner_html
+          actor_2 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[2]/a/span').inner_html
+          actor_3 = parse_page.xpath('//*[@id="title-overview-widget"]/div[3]/div[1]/div[4]/span[3]/a/span').inner_html
+        else
+          p  "it's all good homie.. here is actor _1 "
+          p actor_1
+        end
+
         actors = [actor_1, actor_2, actor_3]
-          p "this the main actor... "
+
+          p "these are the main actors... "
            p  actors
 
-        characters = []
-      #  char_1 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[16]/td[4]/div/a')
-        char_1 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[2]/td[4]/div/a').inner_html
-        char_2 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[2]/td[4]').inner_html
-      #  character_2 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[3]/td[4]/div/a').inner_html
+      #   characters = []
+      # #  char_1 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[16]/td[4]/div/a')
+      #   char_1 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[2]/td[4]/div/a').inner_html
+      #   char_2 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[2]/td[4]').inner_html
+      # #  character_2 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[3]/td[4]/div/a').inner_html
       #  character_3 = parse_page.xpath('//*[@id="titleCast"]/table/tbody/tr[4]/td[4]/div/a').inner_html
       #  characters = [character_1, character_2, character_3]
-          p "this the main charactrs... "
-          p char_2
+          # p "this the main characters... "
+          # p char_2
 
-
+      # get rating
           rating = parse_page.xpath('//*[@id="title-overview-widget"]/div[2]/div[2]/div/div[1]/div[1]/div[1]/strong/span').inner_html
           p "this is the rating"
           p rating
@@ -90,10 +143,11 @@ imdb_movie = imdb_search + movie
            time = parse_page.xpath('//time').text.gsub("\n",'').strip[-7, 7]
          p "this the time ... "
          p  time
-  #GET plot
-         plot = parse_page.xpath('//*[@id="titleStoryLine"]/div[1]/p').inner_html.gsub("\n"," ")
-         plot = plot.split('<em', 2)
-         plot = plot[0].split('.',2)
+
+    #GET plot
+        #  plot = parse_page.xpath('//*[@id="titleStoryLine"]/div[1]/p').inner_html.gsub("\n"," ")
+        #  plot = plot.split('<em', 2)
+        #  plot = plot[0].split('.',2)
          # plot_words = plot[1].scan(/\w+ \w+/)
 
    #GET keywords
@@ -103,47 +157,42 @@ imdb_movie = imdb_search + movie
          kw_3 = parse_page.xpath('//*[@id="titleStoryLine"]/div[2]/a[3]/span').inner_html
          kw_4 = parse_page.xpath('//*[@id="titleStoryLine"]/div[2]/a[4]/span').inner_html
          keywords =  [ kw_1,kw_2, kw_3, kw_4]
+         p "these are the keywords : "
+         p keywords
 
-         tagline = parse_page.xpath('//*[@id="titleStoryLine"]/div[3]').text
-         tagline =  tagline.gsub("\n"," ")
-         tagline = tagline.rpartition("Taglines:")[2]
-         tagline = tagline.split("See more")[0]
+        #  get tagline
+        #  tagline = parse_page.xpath('//*[@id="titleStoryLine"]/div[3]').text
+        #  tagline =  tagline.gsub("\n"," ")
+        #  tagline = tagline.rpartition("Taglines:")[2]
+        #  tagline = tagline.split("See more")[0]
 
 
           #get review
-            review_page = movie_title.split('?', 2)
-             review_page = review_page[0] << "reviews?ref_=tt_urv"
-
-             page = HTTParty.get(review_page)
-             # this is where we transform our http response into a nokogiri object so that we can parse it
-             parse_page = Nokogiri::HTML(page)
-             review = parse_page.xpath('//*[@id="tn15content"]/p[10]').text.gsub("\n"," ")
+          # review_page = movie_title.split('?', 2)
+          #  review_page = review_page[0] << "reviews?ref_=tt_urv"
+          #
+          #  page = HTTParty.get(review_page)
+          #  # this is where we transform our http response into a nokogiri object so that we can parse it
+          #  parse_page = Nokogiri::HTML(page)
+          #  review = parse_page.xpath('//*[@id="tn15content"]/p[10]').text.gsub("\n"," ")
 
 
     movie_info = {
             time: time,
             actors: actors,
-            plot: plot,
+            # plot: plot,
             keywords: keywords,
           #  characters: characters,
             director: director,
             movie_name: movie_name,
-            review: review,
+            # review: review,
             new_rating: new_rating,
-            tagline: tagline,
+            # tagline: tagline,
           }
 
   rescue
-  #   bad_link(error)
   end
-  #
-  # def bad_link(error)
-  #   error_message = {
-  #   sentence1: "There's a problem.",
-  #   sentence2: "Please try again."
-  #   }
-  # end
-  # @error_message = bad_link(error)
+
   @movie_info = get_movie_info(final_imdb_link)
 
   erb(:index, { layout: :app_layout })
