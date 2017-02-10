@@ -1,4 +1,7 @@
 <div class="body_content">
+    <h4><i>"Watching movies so you don't have to"</i></h4>
+  <br>
+  <br>
 
 <div class="search_bar">
 
@@ -7,36 +10,50 @@
       <div>
 
         <label for="moviel_get"></label>
-        <input placeholder="Enter movie title (e.g. Jaws)" class="input_field" type="text" name="movie_input" id="movie_get"><input type="submit" value="Review!" onclick="confirmMovie()">
+        <input placeholder="Enter movie title (e.g. The Shawshank Redemption)" class="input_field" type="text" name="movie_input" id="movie_get"><input type="submit" value="Review!" onclick="confirmMovie()">
+
+
       </div>
 
   </form>
 </div>
 
+<!-- <audio controls id="linkAudio">
+<source src="/windows_95.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio> -->
+
+<audio id="audio_load" src="/windows_95.mp3"></audio>
+<audio id="audio_review" src="/sweep.mp3"></audio>
+<audio id="audio_confirm" src="/confirm.mp3"></audio>
+<audio id="audio_ffw" src="/ffw.mp3"></audio>
+
 <div class ="info_div">
+
 <br>
-<div id="stage_1">
-</div>
+<br>
+      <div id="stage_1"></div>
 
-<div id="stage_2" style="visibility:hidden">
+      <div id="stage_2" style="visibility:hidden">
 
-<button class = "confirmButton" onclick="rightMovie()">Yeah?</button>
-<button class = "confirmButton" onclick="wrongMovie()">No</button>
-</div>
+        <button class = "confirmButton" onclick="rightMovie()">Yeah?</button>
+        <button class = "confirmButton" onclick="wrongMovie()">No</button>
+      </div>
 
-<div id="stage_3" style="visibility:hidden">
-   <br>
-   <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
-   <br>
-    <p><span id="time"></span></p>
-   <!-- <span class="sr-only">Loading...</span> -->
- <button onclick="fastForward()">Speed it up!</button>
-</div>
+      <div id="stage_3" style="visibility:hidden">
+           <br>
+           <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
+           <br>
+            <p><span id="time"></span></p>
+           <!-- <span class="sr-only">Loading...</span> -->
+         <button class = "confirmButton" onclick="fastForward()">Speed it up!</button>
+      </div>
 
-<div id="stage_4" style="visibility:hidden">
+      <div id="stage_4" style="visibility:hidden"></div>
+      <div id="stage_4B" style="visibility:hidden"></div>
 
-</div>
-</div>
+
+    </div>
 
 <div style="visibility:hidden">
 <br>
@@ -45,28 +62,44 @@
 
 </div>
 
-
+<script type="text/javascript">
+// scripts for audio
+window.onload = function() {
+    document.getElementById("audio_load").play();
+}
+function confirmMovie(){
+  document.getElementById("audio_review").play();
+     }
+</script>
 
     <% if @movie_info %>
       <script>
       window.onload = function(){
-       // function confirmMovie(){
 
+
+
+       console.log('XXXXXXXXXXX testing console log');
         var confirm = ['OK,', 'Alright.', 'As you wish.', 'You name it, boss.', 'Let it be.', 'Roger.', 'Alrighty,', '10-4.', 'Okie doke.', "K.", "Mmmm K.", "Hmm."];
         var randConfirm = confirm[Math.floor(Math.random()*confirm.length)];
         var sentence = [" So you want me to review the ", " You mean the ", " You want me to watch the ", " You want the ", " So the ", " That's the "];
         var randSentence = sentence[Math.floor(Math.random()*sentence.length)];
         var film = ["flick", "film", "movie", "one", "blockbuster", "motion picture", "masterpiece"];
         var randFilm = film[Math.floor(Math.random()*film.length)];
-        var type = [" starring " + "<%= @movie_info[:actors].sample%>", " directed by  " + "<%= @movie_info[:director]%>", " about a " + "<%= @movie_info[:keywords].sample%>", " involving a " + "<%= @movie_info[:keywords].sample%>", " involving a "];
+        var type = [" starring " + "<%= @movie_info[:actors].sample%>", " directed by  " + "<%= @movie_info[:director]%>", " about a " + "<%= @movie_info[:keywords].sample%>", " involving a "+ "<%= @movie_info[:keywords].sample%>"];
         var randType = type[Math.floor(Math.random()*type.length)];
+        console.log('do variables work, test test?');
+
         document.getElementById('stage_1').innerHTML = randConfirm + randSentence + randFilm + randType + "?";
         document.getElementById("stage_2").style.visibility = "visible";
         document.getElementById("stage_3").style.visibility = "hidden";
-       }
+        //var type = "<%= @movie_problem%>"
+        // document.getElementById('stage_1B').innerHTML = type
 
+
+     }// end onload
 
        function rightMovie() {
+         document.getElementById("audio_confirm").play();
 
            var correct = [
               "Hmm, OK it’s about " + "<%= @movie_info[:time]%>" + " long. This will take some time.",
@@ -147,11 +180,17 @@
 
 
       function fastForward(){
+        document.getElementById("audio_ffw").play();
+
+
         document.getElementById("stage_1").innerHTML  = "";
         document.getElementById("stage_2").innerHTML  = "";
         document.getElementById("stage_3").innerHTML  = "";
         document.getElementById("stage_4").style.visibility = "visible";
+        document.getElementById("stage_4B").style.visibility = "visible";
         document.getElementById("stage_4").innerHTML  = fastReview;
+        document.getElementById("stage_4B").innerHTML  = sentence_review;
+
       }
 
       var fastReview_a =
@@ -161,22 +200,41 @@
       "So I just watched the first few seconds.",
       "I barely made it threw the opening credits.",
       "K I basically watched the film in a few seconds.",
+      "Hmm OK you didn't give me much time to watch it.",
+      "Alright, I had to speed watch it.",
+      "I didn't have much time to watch it... everything was a bit blurry on fastforward.",
+      "Hmm, OK, I basically ripped through the video on fastforward, so it was very blurry.",
     ];
       var fastReviewRandomA = fastReview_a[Math.floor(Math.random()*fastReview_a.length)];
 
-    var fastReview_b = [
-      " But I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " ends up dying. No spoilers.",
-      " But I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " was the killer.",
-      " Though I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " turned out to be total dick.",
-      " But there was some pretty cool colours. I'd probably give it 1/1 bytes.",
-      " But it was probably pretty good. I'd give it 1/1 bytes.",
-      " Though I think it's worth a watch. I'd probably give it 1/1 bytes.",
-      " But I'd probably give it 1/1 bytes!",
-      " That said, I think you may really enjoy it. I'd probably give it 1/1 bytes.",
-      " That being said, I'd watch it again anytime.",
-      " But I'd definitely give it 1/1 bytes!",
-      ];
+    // var fastReview_b = [
+    //   " But I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " ends up dying. No spoilers.",
+    //   " But I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " was the killer.",
+    //   " Though I think the charactered played by " + "<%= @movie_info[:actors].sample%>" + " turned out to be total dick.",
+    //   " But there was some pretty cool colours. I'd probably give it 1/1 bytes.",
+    //   " But it was probably pretty good. I'd give it 1/1 bytes.",
+    //   " Though I think it's worth a watch. I'd probably give it 1/1 bytes.",
+    //   " But I'd probably give it 1/1 bytes!",
+    //   " That said, I think you may really enjoy it. I'd probably give it 1/1 bytes.",
+    //   " But I'd definitely give it 1/1 bytes!",
+    //   ];
+      var fastReview_b = [
+        " But here's my review: ",
+        " But I guess I can give you a one sentence review: ",
+        " But here are my two cents: ",
+        " But I will say this: ",
+        " But here's your review anyway: ",
+        " But here's my one sentence review: ",
+        " But here are my thoughts: ",
+
+        ];
+        console.log("do we have a movie review in one sentence? ");
+        var sentence_review = "<%= @movie_review[:review]%>";
+        console.log(sentence_review);
       var fastReviewRandomB = fastReview_b[Math.floor(Math.random()*fastReview_b.length)];
       var fastReview = fastReviewRandomA + fastReviewRandomB;
+
+      document.getElementById("stage_4B").innerHTML = sentence_review;
+
       </script>
     <% end %>
