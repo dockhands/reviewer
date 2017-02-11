@@ -102,7 +102,7 @@ bottom:0;
 
 .input_field {
 font-family: 'VT323', monospace;
-  width: 60%;
+  width: 300px;
   -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
      -moz-animation: fadein 6s; /* Firefox < 16 */
 }
