@@ -95,10 +95,9 @@ background-color: white;
   height: 100%;
 }
 .footer {
-height: 25px;
+height: 100%;
 padding-bottom: 0px;
 margin-bottom: 0px;
-position:absolute;
 bottom:0;
 }
 
