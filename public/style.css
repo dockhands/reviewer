@@ -105,7 +105,7 @@ bottom:0;
 
 .input_field {
 
-  width: 300px;
+  width: 30%;
   -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
      -moz-animation: fadein 6s; /* Firefox < 16 */
 }
