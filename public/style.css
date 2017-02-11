@@ -63,10 +63,10 @@ background-color: white;
 }
 
 .header_image {
-background-color: black;
+background-color: white;
 }
 .header_stuff {
-background-color: black;
+background-color: white;
  text-align: center;
 -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
    -moz-animation: fadein 4s; /* Firefox < 16 */
