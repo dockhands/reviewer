@@ -12,7 +12,7 @@ img {
 }
 
 p {
-  color: white;
+  color: black
   font-family: 'VT323', monospace;
   font-weight: lighter;
   font-weight: 100;
@@ -23,7 +23,7 @@ h1 {
    margin-top: 10px;
    margin-bottom: 0px;
    padding-bottom: 0px;
-   color: white;
+   color: black;
 }
 
 h1, h2, h3 h4 {
@@ -33,24 +33,24 @@ h1, h2, h3 h4 {
    margin-bottom: 0px;
    margin-top: 0px;
    padding-top: 0px;
-   color: white;
+   color: black;
 }
 
 a {
- color: white;
+ color: black;
    }
  a:hover {
-     color: black;
+     color: gray;
    }
 
 .body {
-background-color: black;
+background-color: white;
 }
 
 .body_content {
   font-family: 'VT323', monospace;
   text-align: center;
-  background-color: black;
+  background-color: white;
 }
 
 .info_div{
@@ -106,6 +106,7 @@ height: 100%;}
 }
 
 #tagline {
+  font-family: 'VT323', monospace;
   -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
      -moz-animation: fadein 6s; /* Firefox < 16 */
 }
