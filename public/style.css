@@ -97,7 +97,11 @@ background-color: white;
 .footer {
 height: 100%;
 padding-bottom: 0px;
-margin-bottom: 0px;}
+margin-bottom: 0px;
+position:absolute;
+bottom:0;
+}
+
 
 
 .input_field {
