@@ -68,15 +68,15 @@ background-color: black;
 .header_stuff {
 background-color: black;
  text-align: center;
--webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-   -moz-animation: fadein 2s; /* Firefox < 16 */
-    -ms-animation: fadein 2s; /* Internet Explorer */
-     -o-animation: fadein 2s; /* Opera < 12.1 */
-        animation: fadein 2s;
-}
-.search_bar {
 -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
    -moz-animation: fadein 4s; /* Firefox < 16 */
+    -ms-animation: fadein 4s; /* Internet Explorer */
+     -o-animation: fadein 4s; /* Opera < 12.1 */
+        animation: fadein 4s;
+}
+.search_bar {
+-webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
+   -moz-animation: fadein 6s; /* Firefox < 16 */
 }
 
 .confirmButton {
@@ -101,8 +101,8 @@ height: 100%;}
 .input_field {
 
   width: 300px;
-  -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: fadein 5s; /* Firefox < 16 */
+  -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 6s; /* Firefox < 16 */
 }
 
 
