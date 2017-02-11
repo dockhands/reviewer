@@ -1,7 +1,7 @@
 
 img {
 
-    max-width: 25%;
+    max-width: 30%;
     max-height: auto;
     align: middle;
     display: block;
@@ -57,10 +57,7 @@ background-color: white;
   font-family: 'VT323', monospace;
 
 }
-.input_field {
- font-family: 'VT323', monospace;
-  width: 300px;
-}
+
 
 .header_image {
 background-color: white;
@@ -104,7 +101,7 @@ bottom:0;
 
 
 .input_field {
-
+font-family: 'VT323', monospace;
   width: 30%;
   -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
      -moz-animation: fadein 6s; /* Firefox < 16 */
