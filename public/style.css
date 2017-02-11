@@ -105,6 +105,10 @@ height: 100%;}
      -moz-animation: fadein 6s; /* Firefox < 16 */
 }
 
+#tagline {
+  -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 6s; /* Firefox < 16 */
+}
 
 
 #stage_1 {
