@@ -155,8 +155,8 @@ font-family: 'VT323', monospace;
   margin: auto;
    width: 70%;
     visibility: hidden;
-    -webkit-animation: fadein 20s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 20s; /* Firefox < 16 */
+    -webkit-animation: fadein 10s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 10s; /* Firefox < 16 */
        padding-bottom: 20px;
 }
 
@@ -167,9 +167,9 @@ font-family: 'VT323', monospace;
   margin: auto;
    width: 70%;
     visibility: hidden;
-    -webkit-animation: fadein 20s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 20s; /* Firefox < 16 */
-       padding-bottom: 20px;
+    -webkit-animation: fadein 10s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 10s; /* Firefox < 16 */
+       padding-bottom: 40px;
 }
 
 @keyframes fadein {
